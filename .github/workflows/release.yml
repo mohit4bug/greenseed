@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-binaries:
+    name: Build binary for ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: bun-darwin-x64-modern
+            runner: macos-13
+            artifact: greenseed-darwin-x64
+          - target: bun-darwin-arm64-modern
+            runner: macos-14
+            artifact: greenseed-darwin-arm64
+          - target: bun-linux-x64-modern
+            runner: ubuntu-22.04
+            artifact: greenseed-linux-x64
+          - target: bun-linux-arm64-modern
+            runner: ubuntu-22.04-arm
+            artifact: greenseed-linux-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun build --compile --target=${{ matrix.target }} ./src/cli.ts --outfile=${{ matrix.artifact }}
+
+      - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" "${{ matrix.artifact }}" \
+            --repo "${{ github.repository }}" \
+            --clobber
