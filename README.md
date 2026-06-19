@@ -14,6 +14,32 @@ Or install it globally:
 pnpm add -g greenseed
 ```
 
+Install via npm:
+
+```bash
+npm install greenseed
+```
+
+```bash
+npm install -g greenseed
+```
+
+Install via bun:
+
+```bash
+bun install greenseed
+```
+
+```bash
+bun install -g greenseed
+```
+
+Or install the standalone binary (no runtime required):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mohit4bug/greenseed/main/install.sh | bash
+```
+
 ## Quick Start
 
 Generate a seed configuration file:
