@@ -1,0 +1,37 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "node"],
+	"env": {
+		"node": true
+	},
+	"categories": {
+		"correctness": "error",
+		"suspicious": "error",
+		"perf": "error"
+	},
+	"rules": {
+		"eslint/prefer-const": "error",
+		"eslint/no-var": "error",
+		"eslint/eqeqeq": "error",
+		"eslint/default-case-last": "error",
+		"eslint/no-implicit-coercion": "warn",
+		"typescript/no-non-null-assertion": "warn",
+		"typescript/no-explicit-any": "off",
+		"typescript/no-require-imports": "error",
+		"typescript/prefer-function-type": "error",
+		"typescript/explicit-function-return-type": "off",
+		"unicorn/no-abusive-eslint-disable": "off",
+		"unicorn/no-null": "off",
+		"unicorn/no-anonymous-default-export": "off",
+		"unicorn/no-array-reduce": "off",
+		"import/default": "error",
+		"import/namespace": "error",
+		"import/extensions": "error",
+		"import/no-commonjs": "error",
+		"import/no-cycle": "warn",
+		"node/no-process-env": "off",
+		"oxc/no-optional-chaining": "error",
+		"oxc/no-barrel-file": "off"
+	},
+	"ignorePatterns": ["dist/**", "node_modules/**"]
+}

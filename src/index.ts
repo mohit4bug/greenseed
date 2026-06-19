@@ -1,0 +1,5 @@
+export { init } from "./commands/init"
+export { push } from "./commands/push"
+export { ConfigSchema, loadConfig } from "./core/config"
+export { check, connect, insert, metadata, validateTables } from "./core/database"
+export type { Config, InitOptions, PushOptions, TableConfig } from "./types"

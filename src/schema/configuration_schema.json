@@ -1,0 +1,74 @@
+{
+	"type": "object",
+	"properties": {
+		"seedFileExtensions": {
+			"type": "array",
+			"items": {
+				"enum": [".json"]
+			}
+		},
+		"databaseUrlEnvVar": {
+			"type": "string"
+		},
+		"onMissingFile": {
+			"enum": ["skip", "error"],
+			"default": "error"
+		},
+		"useTransaction": {
+			"type": "boolean",
+			"default": true
+		},
+		"tables": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"table": {
+						"type": "string"
+					},
+					"schema": {
+						"type": "string",
+						"default": "public"
+					},
+					"primaryKeys": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"source": {
+						"type": "string"
+					},
+					"updateOnConflict": {
+						"anyOf": [
+							{
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							{
+								"type": "null"
+							}
+						],
+						"default": null
+					},
+					"conflictTargetWhere": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						],
+						"default": null
+					}
+				},
+				"required": ["table", "primaryKeys", "source"]
+			}
+		}
+	},
+	"required": ["seedFileExtensions", "databaseUrlEnvVar", "tables"],
+	"$schema": "http://json-schema.org/draft-07/schema#"
+}
